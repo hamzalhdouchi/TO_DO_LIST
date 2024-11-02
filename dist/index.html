@@ -6,6 +6,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="/src/output.css">
+    <style> 
+    .hide-scrollbar::-webkit-scrollbar {
+        display: none; 
+    }
+
+    .hide-scrollbar {
+        -ms-overflow-style: none;  
+        scrollbar-width: none;      
+    }
+
+    body {
+        overflow: hidden; /* Prevent overflow on the body */
+    }
+    </style>
+   
 </head>
 
 <body class=" m-0 p-0 h-screen">
@@ -28,9 +43,7 @@
                 <div>
                     <label class="text-white" for="info">prioritè</label>
                     <select id="info" class="w-20 h-8 rounded-lg" name="info">
-                        <option value="P0">P0</option>
-                        <option value="P1">P1</option>
-                        <option value="P2">P2</option>
+                       
                     </select>
                 </div>
                 <div>
