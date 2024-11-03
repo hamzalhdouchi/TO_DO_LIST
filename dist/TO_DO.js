@@ -221,4 +221,20 @@ function displayTickets() {
     allTask.onclick = arrayData;
 }
 
+function showAlert(message) {
+    const alertBox = document.getElementById("alert-box");
+    const alertMessage = document.getElementById("alert-message");
 
+    alertMessage.textContent = message;
+    alertBox.classList.remove("hidden", "fade-out");
+    alertBox.classList.add("fade-in");
+
+    setTimeout(() => {
+        alertBox.classList.remove("fade-in");
+        alertBox.classList.add("fade-out");
+
+        setTimeout(() => {
+            alertBox.classList.add("hidden");
+        }, 500);
+    }, 3000);
+}
