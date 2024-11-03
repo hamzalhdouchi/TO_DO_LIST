@@ -238,3 +238,13 @@ function showAlert(message) {
         }, 500);
     }, 3000);
 }
+function showSuccessAlert() {
+    const alertBox = document.getElementById("success-alert");
+    alertBox.classList.remove("hidden");
+    alertBox.classList.add("fade-in");
+
+    setTimeout(() => {
+        alertBox.classList.replace("fade-in", "fade-out");
+        setTimeout(() => alertBox.classList.add("hidden"), 500);
+    }, 3000);
+}
