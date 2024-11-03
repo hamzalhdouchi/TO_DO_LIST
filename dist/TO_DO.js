@@ -118,3 +118,23 @@ function editTask(button, id) {
     const status = document.getElementById("changeColumn");
     taskContainer.insertAdjacentHTML("beforeend", newSelect);
 }
+function changeColumn(select, id) {
+    console.log(id);
+    let taskContainer = select.parentElement.parentElement;
+
+    const storedTickets = localStorage.getItem("storeTicket");
+
+    let ticketsArray = [];
+    if (storedTickets) {
+        ticketsArray = JSON.parse(storedTickets);
+    }
+
+    const specificTicket = ticketsArray.find((ticket) => ticket.id === id);
+
+    const sv = taskContainer.querySelector("#status").value;
+
+    specificTicket.status = sv;
+
+    localStorage.setItem("storeTicket", JSON.stringify(ticketsArray));
+    location.reload();
+}
