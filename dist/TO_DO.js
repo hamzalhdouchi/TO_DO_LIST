@@ -99,3 +99,22 @@ function clearInputFields() {
         location.reload(); 
     }, 500); 
 }
+function editTask(button, id) {
+    let taskContainer = button.parentElement.parentElement;
+    if (taskContainer.querySelector("select")) {
+        return; // Prevent adding multiple selects
+    }
+
+    let newSelect = `
+          <select  onchange="changeColumn(this , ${id})" id="status" class="w-20 h-8 rounded-lg" name="satuts">
+                        <option value="">Select status ID</option>
+                        <option value="0">To Do</option>
+                        <option value="1">Doing</option>
+                        <option value="2">Done</option>
+                    </select>
+    
+    `;
+
+    const status = document.getElementById("changeColumn");
+    taskContainer.insertAdjacentHTML("beforeend", newSelect);
+}
