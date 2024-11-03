@@ -8,18 +8,66 @@
     <link rel="stylesheet" href="/src/output.css">
     <style>
         .hide-scrollbar::-webkit-scrollbar {
-            display: none; 
+            display: none;
         }
 
         .hide-scrollbar {
-            -ms-overflow-style: none;  
-            scrollbar-width: none;      
+            -ms-overflow-style: none;
+            scrollbar-width: none;
         }
 
         body {
-            overflow: hidden; /* Prevent overflow on the body */
+            overflow: auto;
+            /* Prevent overflow on the body */
+        }
+
+        @keyframes fadeIn {
+            0% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+
+            100% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeOut {
+            0% {
+                opacity: 1;
+                transform: translateY(0);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+        }
+
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
+
+        .fade-out {
+            animation: fadeOut 0.5s ease forwards;
+            animation: fade-out 0.5s forwards;
+        }
+
+
+        @keyframes fade-out {
+            from {
+                opacity: 1;
+            }
+
+            to {
+                opacity: 0;
+                transform: translateX(20px);
+                /* Slightly move to the right */
+            }
         }
     </style>
+</head>
 </head>
 
 <body class="m-0 p-0 h-screen">

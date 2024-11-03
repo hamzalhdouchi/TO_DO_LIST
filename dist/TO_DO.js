@@ -246,5 +246,5 @@ function showSuccessAlert() {
     setTimeout(() => {
         alertBox.classList.replace("fade-in", "fade-out");
         setTimeout(() => alertBox.classList.add("hidden"), 500);
-    }, 3000);
+    },
 }
