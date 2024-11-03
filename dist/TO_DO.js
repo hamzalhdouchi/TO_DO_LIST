@@ -138,3 +138,70 @@ function changeColumn(select, id) {
     localStorage.setItem("storeTicket", JSON.stringify(ticketsArray));
     location.reload();
 }
+
+function displayTickets() {
+    const dataA = localStorage.getItem("storeTicket");
+
+    let arrayData = [];
+
+    if (dataA) {
+        arrayData = JSON.parse(dataA);
+    }
+
+    arrayData.map((ticket) => {
+        if (ticket.status === "0") {
+            // console.log("firt");
+
+            const taskHTML = `
+            <div class="task w-80 mt-6 mb-6 p-2 rounded-lg bg-white">
+                <h1 class="font-bold mt-1 mb-3" id="ticket-title">${ticket.title}</h1>
+                <p class="mt-1 mb-3  overflow-auto hide-scrollbar" id="ticket-desc">${ticket.description}</p>
+                <div class="w-full flex justify-between">
+                    <div class="w-10 h-6  flex justify-center items-center rounded-lg">${ticket.info}</div>
+
+                    <div class="w-28 h-6 bg-red-300 flex justify-center items-center rounded-lg">${ticket.endDate}</div>
+                </div>
+                <div class="flex justify-around mt-4">
+                <button class="bg-blue-300 w-20 rounded-lg ml-2 font-medium" onclick="editTask(this, ${ticket.id})">Edit</button>
+                <button class="bg-red-600 w-20 rounded-lg ml-2 font-medium" onclick="removeTask(this,${ticket.id})">Delete</button>
+                </div>
+            </div>
+        `;
+            todo.insertAdjacentHTML("beforeend", taskHTML);
+        } else if (ticket.status === "1") {
+            const taskHTML = `
+            <div class="task w-80 mt-6 mb-6 p-2 rounded-lg bg-white">
+                <h1 class="font-bold mt-1 mb-3" id="ticket-title">${ticket.title}</h1>
+                <p class="mt-1 mb-3  overflow-auto hide-scrollbar" id="ticket-desc">${ticket.description}</p>
+                <div class="w-full flex justify-between">
+                    <div class="w-10 h-6 flex justify-center items-center rounded-lg">${ticket.info}</div>
+                    <div class="w-28 h-6 bg-red-300 flex justify-center items-center rounded-lg">${ticket.endDate}</div>
+                </div>
+                <div class="flex justify-around mt-4">
+                <button class="bg-blue-300 w-20 rounded-lg ml-2 font-medium" onclick="editTask(this, ${ticket.id})">Edit</button>
+                <button class="bg-red-600 w-20 rounded-lg ml-2 font-medium" onclick="removeTask(this,${ticket.id})">Delete</button>
+                </div>
+            </div>
+        `;
+            doing.insertAdjacentHTML("beforeend", taskHTML);
+        } else if (ticket.status === "2") {
+            const taskHTML = `
+            <div class="task w-80 mt-6 mb-6 p-2 rounded-lg bg-white">
+                <h1 class="font-bold mt-1 mb-3" id="ticket-title">${ticket.title}</h1>
+                <p class="mt-1 mb-3  overflow-auto hide-scrollbar" id="ticket-desc">${ticket.description}</p>
+                <div class="w-full flex justify-between">
+                    <div class="w-10 h-6 flex justify-center items-center rounded-lg">${ticket.info}</div>
+                    <div class="w-28 h-6 bg-red-300 flex justify-center items-center rounded-lg">${ticket.endDate}</div>
+                </div>
+                <div class="flex justify-around mt-4">
+                <button class="bg-blue-300 w-20 rounded-lg ml-2 font-medium" onclick="editTask(this, ${ticket.id})">Edit</button>
+                <button class="bg-red-600 w-20 rounded-lg ml-2 font-medium" onclick="removeTask(this,${ticket.id})">Delete</button>
+                </div>
+            </div>
+        `;
+            done.insertAdjacentHTML("beforeend", taskHTML);
+        }
+    });
+
+  
+}
