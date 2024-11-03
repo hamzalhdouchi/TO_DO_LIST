@@ -203,5 +203,22 @@ function displayTickets() {
         }
     });
 
-  
+    arrayData.forEach((task) => {
+        if (task.info == "P1") {
+            contourP1++;
+        } else if (task.info == "P2") {
+            contourP2++;
+        } else if (task.info == "P3") {
+            contourP3++;
+        }
+    });
+
+    stat0.innerHTML = contourP1;
+    stat1.innerHTML = contourP2;
+    stat2.innerHTML = contourP3;
+
+    contour.innerHTML = arrayData.length;
+    allTask.onclick = arrayData;
 }
+
+
