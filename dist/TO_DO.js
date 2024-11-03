@@ -74,3 +74,10 @@ function rigex() {
 
     return true;
 }
+function clearInputFields() {
+    titleInput.value = "";
+    descriptionInput.value = "";
+    infoInput.value = "";
+    statusInput.value = "";
+    end_dateInput.value = "";
+  }
