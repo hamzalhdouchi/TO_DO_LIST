@@ -1,47 +1,36 @@
-let titleInput = document.getElementById('title')
-let descriptionInput = document.getElementById('description');
-let infoInput = document.getElementById('info');
-let statusInput = document.getElementById('status');
-let st_dateInput = document.getElementById('st_date');
-let end_dateInput = document.getElementById('end_date');
-let popup = document.getElementById('popup');
-let todo = document.getElementById('todo');
-let doing = document.getElementById('Doing');
-let done = document.getElementById('Done');
+let titleInput = document.getElementById("title");
+let descriptionInput = document.getElementById("description");
+let infoInput = document.getElementById("info");
+let statusInput = document.getElementById("status");
+let end_dateInput = document.getElementById("end_date");
+let popup = document.getElementById("popup");
+let todo = document.getElementById("todo");
+let doing = document.getElementById("Doing");
+let done = document.getElementById("Done");
+let stat0 = document.getElementById("stat0");
+let stat1 = document.getElementById("stat1");
+let stat2 = document.getElementById("stat2");
+let contour = document.getElementById("contour");
+let allTask = document.getElementById("allTask");
+let ticketsArray;
+
 
 document.addEventListener("DOMContentLoaded", function (event) {
     displayTickets();
 });
 
-function togglePopup() {
-    popup.classList.toggle('hidden');
-}
-function addTask() {
-    rigex();
-    let title = titleInput.value;
-    const description = descriptionInput.value;
-    const info = infoInput.value;
-    const status = statusInput.value;
-    const endDate = end_dateInput.value;
 
-    const task = {
-        description,
-        status,
-        endDate,
-        title,
-        info,
-        id: Math.floor(Math.random() * 100) + 1
-    };
-    const data = localStorage.getItem("storeTicket");
-    let ticketsArray = [];
-    if (data) {
-        ticketsArray = JSON.parse(data);
-    }
-    ticketsArray.push(task);
-    localStorage.setItem("storeTicket", JSON.stringify(ticketsArray));
-    clearInputFields();
-    popup.classList.add("hidden");
-    location.reload();
+
+let contourP1 = 0;
+let contourP2 = 0;
+let contourP3 = 0;
+
+
+
+// data.push(newobj);
+function togglePopup() {
+    const popup = document.getElementById("popup");
+    popup.classList.toggle("hidden");
 }
 
 function rigex() {
@@ -74,18 +63,46 @@ function rigex() {
 
     return true;
 }
+
+function addTask() {
+    if (!rigex()) {
+        return;
+    }
+
+    const task = {
+        title: titleInput.value,
+        description: descriptionInput.value,
+        info: infoInput.value,
+        status: statusInput.value,
+        endDate: end_dateInput.value,
+        id: Math.floor(Math.random() * 100) + 1,
+    };
+
+    let ticketsArray = JSON.parse(localStorage.getItem("storeTicket")) || [];
+    ticketsArray.push(task);
+    localStorage.setItem("storeTicket", JSON.stringify(ticketsArray));
+    clearInputFields();
+    showSuccessAlert();
+    popup.classList.add("hidden");
+    location.reload();
+    togglePopup();
+}
+
 function clearInputFields() {
     titleInput.value = "";
     descriptionInput.value = "";
     infoInput.value = "";
     statusInput.value = "";
     end_dateInput.value = "";
-  }
-  function removeTask(button, id) {
-    const taskElement = button.closest(".task"); 
-    taskElement.classList.add("fade-out"); 
+}
 
-   
+// 
+
+function removeTask(button, id) {
+    const taskElement = button.closest(".task"); // Get the task element
+    taskElement.classList.add("fade-out"); // Add fade-out class
+
+    // Wait for the animation to finish before removing the element
     setTimeout(() => {
         const data = localStorage.getItem("storeTicket");
         let arrayData = [];
@@ -95,10 +112,11 @@ function clearInputFields() {
 
         arrayData = arrayData.filter((item) => item.id !== id);
         localStorage.setItem("storeTicket", JSON.stringify(arrayData));
-        taskElement.remove();
-        location.reload(); 
-    }, 500); 
+        taskElement.remove(); // Remove the element from the DOM
+        location.reload(); // Reload to refresh the display
+    }, 500); // Duration should match your CSS animation duration
 }
+
 function editTask(button, id) {
     let taskContainer = button.parentElement.parentElement;
     if (taskContainer.querySelector("select")) {
@@ -118,6 +136,7 @@ function editTask(button, id) {
     const status = document.getElementById("changeColumn");
     taskContainer.insertAdjacentHTML("beforeend", newSelect);
 }
+
 function changeColumn(select, id) {
     console.log(id);
     let taskContainer = select.parentElement.parentElement;
@@ -221,6 +240,7 @@ function displayTickets() {
     allTask.onclick = arrayData;
 }
 
+//Animation
 function showAlert(message) {
     const alertBox = document.getElementById("alert-box");
     const alertMessage = document.getElementById("alert-message");
@@ -238,6 +258,7 @@ function showAlert(message) {
         }, 500);
     }, 3000);
 }
+
 function showSuccessAlert() {
     const alertBox = document.getElementById("success-alert");
     alertBox.classList.remove("hidden");
