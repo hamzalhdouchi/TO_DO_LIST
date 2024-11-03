@@ -8,3 +8,11 @@ let popup = document.getElementById('popup');
 let todo= document.getElementById('todo');
 let doing = document.getElementById('Doing');
 let done = document.getElementById('Done');
+
+document.addEventListener("DOMContentLoaded", function (event) {
+    displayTickets();
+});
+
+function togglePopup() {
+    popup.classList.toggle('hidden');
+}
