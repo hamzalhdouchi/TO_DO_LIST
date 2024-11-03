@@ -81,3 +81,21 @@ function clearInputFields() {
     statusInput.value = "";
     end_dateInput.value = "";
   }
+  function removeTask(button, id) {
+    const taskElement = button.closest(".task"); 
+    taskElement.classList.add("fade-out"); 
+
+   
+    setTimeout(() => {
+        const data = localStorage.getItem("storeTicket");
+        let arrayData = [];
+        if (data) {
+            arrayData = JSON.parse(data);
+        }
+
+        arrayData = arrayData.filter((item) => item.id !== id);
+        localStorage.setItem("storeTicket", JSON.stringify(arrayData));
+        taskElement.remove();
+        location.reload(); 
+    }, 500); 
+}
