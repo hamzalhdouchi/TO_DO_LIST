@@ -96,13 +96,11 @@ function clearInputFields() {
     end_dateInput.value = "";
 }
 
-// 
 
 function removeTask(button, id) {
-    const taskElement = button.closest(".task"); // Get the task element
-    taskElement.classList.add("fade-out"); // Add fade-out class
+    const taskElement = button.closest(".task"); 
+    taskElement.classList.add("fade-out"); 
 
-    // Wait for the animation to finish before removing the element
     setTimeout(() => {
         const data = localStorage.getItem("storeTicket");
         let arrayData = [];
@@ -112,15 +110,15 @@ function removeTask(button, id) {
 
         arrayData = arrayData.filter((item) => item.id !== id);
         localStorage.setItem("storeTicket", JSON.stringify(arrayData));
-        taskElement.remove(); // Remove the element from the DOM
-        location.reload(); // Reload to refresh the display
-    }, 500); // Duration should match your CSS animation duration
+        taskElement.remove(); 
+        location.reload(); 
+    }, 500); 
 }
 
 function editTask(button, id) {
     let taskContainer = button.parentElement.parentElement;
     if (taskContainer.querySelector("select")) {
-        return; // Prevent adding multiple selects
+        return; 
     }
 
     let newSelect = `
@@ -160,85 +158,46 @@ function changeColumn(select, id) {
 
 function displayTickets() {
     const dataA = localStorage.getItem("storeTicket");
-
-    let arrayData = [];
-
-    if (dataA) {
-        arrayData = JSON.parse(dataA);
-    }
+    let arrayData = dataA ? JSON.parse(dataA) : [];
 
     arrayData.map((ticket) => {
-        if (ticket.status === "0") {
-            // console.log("firt");
+        let borderClass = "";
+        if (ticket.info === "P1") borderClass = "border-red-500";
+        else if (ticket.info === "P2") borderClass = "border-orange-500";
+        else if (ticket.info === "P3") borderClass = "border-green-500";
 
-            const taskHTML = `
-            <div class="task w-80 mt-6 mb-6 p-2 rounded-lg bg-white">
+        const taskHTML = `
+            <div class="task w-80 mt-6 mb-6 p-2 rounded-lg bg-white ${borderClass} border-4">
                 <h1 class="font-bold mt-1 mb-3" id="ticket-title">${ticket.title}</h1>
-                <p class="mt-1 mb-3  overflow-auto hide-scrollbar" id="ticket-desc">${ticket.description}</p>
-                <div class="w-full flex justify-between">
-                    <div class="w-10 h-6  flex justify-center items-center rounded-lg">${ticket.info}</div>
-
-                    <div class="w-28 h-6 bg-red-300 flex justify-center items-center rounded-lg">${ticket.endDate}</div>
-                </div>
-                <div class="flex justify-around mt-4">
-                <button class="bg-blue-300 w-20 rounded-lg ml-2 font-medium" onclick="editTask(this, ${ticket.id})">Edit</button>
-                <button class="bg-red-600 w-20 rounded-lg ml-2 font-medium" onclick="removeTask(this,${ticket.id})">Delete</button>
-                </div>
-            </div>
-        `;
-            todo.insertAdjacentHTML("beforeend", taskHTML);
-        } else if (ticket.status === "1") {
-            const taskHTML = `
-            <div class="task w-80 mt-6 mb-6 p-2 rounded-lg bg-white">
-                <h1 class="font-bold mt-1 mb-3" id="ticket-title">${ticket.title}</h1>
-                <p class="mt-1 mb-3  overflow-auto hide-scrollbar" id="ticket-desc">${ticket.description}</p>
+                <p class="mt-1 mb-3 overflow-auto hide-scrollbar" id="ticket-desc">${ticket.description}</p>
                 <div class="w-full flex justify-between">
                     <div class="w-10 h-6 flex justify-center items-center rounded-lg">${ticket.info}</div>
                     <div class="w-28 h-6 bg-red-300 flex justify-center items-center rounded-lg">${ticket.endDate}</div>
                 </div>
                 <div class="flex justify-around mt-4">
-                <button class="bg-blue-300 w-20 rounded-lg ml-2 font-medium" onclick="editTask(this, ${ticket.id})">Edit</button>
-                <button class="bg-red-600 w-20 rounded-lg ml-2 font-medium" onclick="removeTask(this,${ticket.id})">Delete</button>
+                    <button class="bg-blue-300 w-20 rounded-lg ml-2 font-medium" onclick="editTask(this, ${ticket.id})">Edit</button>
+                    <button class="bg-red-600 w-20 rounded-lg ml-2 font-medium" onclick="removeTask(this, ${ticket.id})">Delete</button>
                 </div>
             </div>
         `;
-            doing.insertAdjacentHTML("beforeend", taskHTML);
-        } else if (ticket.status === "2") {
-            const taskHTML = `
-            <div class="task w-80 mt-6 mb-6 p-2 rounded-lg bg-white">
-                <h1 class="font-bold mt-1 mb-3" id="ticket-title">${ticket.title}</h1>
-                <p class="mt-1 mb-3  overflow-auto hide-scrollbar" id="ticket-desc">${ticket.description}</p>
-                <div class="w-full flex justify-between">
-                    <div class="w-10 h-6 flex justify-center items-center rounded-lg">${ticket.info}</div>
-                    <div class="w-28 h-6 bg-red-300 flex justify-center items-center rounded-lg">${ticket.endDate}</div>
-                </div>
-                <div class="flex justify-around mt-4">
-                <button class="bg-blue-300 w-20 rounded-lg ml-2 font-medium" onclick="editTask(this, ${ticket.id})">Edit</button>
-                <button class="bg-red-600 w-20 rounded-lg ml-2 font-medium" onclick="removeTask(this,${ticket.id})">Delete</button>
-                </div>
-            </div>
-        `;
-            done.insertAdjacentHTML("beforeend", taskHTML);
-        }
+
+        if (ticket.status === "0") todo.insertAdjacentHTML("beforeend", taskHTML);
+        else if (ticket.status === "1") doing.insertAdjacentHTML("beforeend", taskHTML);
+        else if (ticket.status === "2") done.insertAdjacentHTML("beforeend", taskHTML);
     });
 
     arrayData.forEach((task) => {
-        if (task.info == "P1") {
-            contourP1++;
-        } else if (task.info == "P2") {
-            contourP2++;
-        } else if (task.info == "P3") {
-            contourP3++;
-        }
+        if (task.info == "P1") contourP1++;
+        else if (task.info == "P2") contourP2++;
+        else if (task.info == "P3") contourP3++;
     });
 
     stat0.innerHTML = contourP1;
     stat1.innerHTML = contourP2;
     stat2.innerHTML = contourP3;
-
     contour.innerHTML = arrayData.length;
-    allTask.onclick = arrayData;
 }
+
 
 //Animation
 function showAlert(message) {
